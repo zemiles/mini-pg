@@ -1,39 +1,43 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '4.2.0'
-    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.springframework.boot' version '4.2.0' apply false
+    id 'io.spring.dependency-management' version '1.1.7' apply false
 }
 
-group = 'io.github.zemiles'
-version = '0.0.1-SNAPSHOT'
-description = 'payment-idempotency'
+allprojects {
+    group = 'io.github.zemiles'
+    version = '0.0.1-SNAPSHOT'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+    repositories {
+        mavenCentral()
     }
 }
 
-repositories {
-    mavenCentral()
-}
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-h2console'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-    testCompileOnly 'org.projectlombok:lombok'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testAnnotationProcessor 'org.projectlombok:lombok'
-}
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
 
-tasks.named('test') {
-    useJUnitPlatform()
+    // 모든 모듈이 스프링 부트와 같은 라이브러리 버전을 쓰도록 BOM을 가져온다
+    dependencyManagement {
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
 }

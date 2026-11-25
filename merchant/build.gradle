@@ -1,0 +1,5 @@
+description = '가맹점, 시크릿 키, Basic 인증'
+
+dependencies {
+    implementation project(':common')
+}

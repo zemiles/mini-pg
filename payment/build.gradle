@@ -1,0 +1,7 @@
+description = '결제 승인, 취소, 조회'
+
+dependencies {
+    implementation project(':common')
+    implementation project(':merchant')   // @AuthMerchant
+    implementation project(':external')   // 카드사 클라이언트
+}

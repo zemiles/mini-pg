@@ -1,0 +1,5 @@
+description = '외부 기관 연동 (카드사)'
+
+dependencies {
+    implementation project(':common')
+}

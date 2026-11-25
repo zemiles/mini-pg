@@ -1,1 +1,7 @@
 rootProject.name = 'payment-idempotency'
+
+include 'app'        // 실행 모듈: @SpringBootApplication, 설정 파일, DB 스크립트
+include 'common'     // 공통: BaseTimeEntity, 공통 예외, 웹 설정
+include 'merchant'   // 가맹점, 시크릿 키, Basic 인증 필터
+include 'payment'    // 결제 승인, 취소, 조회
+include 'external'   // 외부 기관 연동 (카드사)

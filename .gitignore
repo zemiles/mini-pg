@@ -35,3 +35,23 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Env ###
+.env
+.env.*
+!.env.example
+
+### Local config ###
+application-local.yml
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Logs ###
+*.log
+logs/
+
+### Local DB ###
+*.mv.db
+*.trace.db
